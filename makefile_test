@@ -1,0 +1,22 @@
+CC     = mpicc
+CFLAGS = -g -n -c
+LINK   = -lmpfr -lgmp -lgsl -lmpi
+ 
+all: test
+ 
+test: test.o bpnpsofuncs.o swarm.o
+	$(CC) $(LINK) test.o bpnpsofuncs.o swarm.o -o testPSO
+
+swarm.o: swarm.c
+	$(CC) $(CFLAGS) $(LINK) swarm.c -o swarm.o
+
+bpnpsofuncs.o: bpnpsofuncs.c
+	$(CC) $(CFLAGS) $(LINK) bpnpsofuncs.c -o bpnpsofuncs.o
+ 
+test.o: test.c
+	$(CC) $(CFLAGS) $(LINK) test.c -o test.o
+ 
+clean:
+	rm -f test test.o bpnpsofuncs.o swarm.o
+ 
+  
